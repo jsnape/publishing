@@ -29,7 +29,7 @@ files:
 | `date`     | No       | —       | Publication date                         |
 | `class`    | No       | `book`  | LaTeX document class: `book` or `article`|
 | `lang`     | No       | `en-GB` | Language for hyphenation and typography  |
-| `files`    | Yes      | —       | Ordered list of Markdown source files    |
+| `files`    | Yes      | —       | Ordered list of source files (.md or .tex) |
 
 ## Document Classes
 
@@ -48,6 +48,9 @@ files:
 ## File Ordering
 
 Files are included in the PDF in exactly the order listed under `files:`.
+Both `.md` (Markdown) and `.tex` (LaTeX) files are supported — Markdown files
+are converted to LaTeX via Pandoc, while `.tex` files are included directly.
+
 A common convention is to prefix filenames with numbers:
 
 ```
@@ -55,8 +58,10 @@ A common convention is to prefix filenames with numbers:
 02-literature-review.md
 03-methodology.md
 04-results.md
-05-conclusion.md
+05-appendix.tex
+06-conclusion.md
 ```
 
-This keeps files naturally sorted in file browsers while the manifest
-remains the authoritative source of ordering.
+Use `.tex` files when you need fine-grained LaTeX control (complex maths,
+custom table layouts, specialised environments). The manifest remains the
+authoritative source of ordering.

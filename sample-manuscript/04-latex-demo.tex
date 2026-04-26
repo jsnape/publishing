@@ -1,0 +1,20 @@
+This chapter was written directly in \LaTeX{} to demonstrate that
+\texttt{.tex} files can be mixed freely with Markdown sources in the
+\texttt{files:} list of \texttt{manuscript.yaml}.
+
+\section*{When to Use \LaTeX{} Directly}
+
+Hand-written \LaTeX{} is useful when you need:
+
+\begin{itemize}
+  \item Complex mathematical typesetting
+  \item Custom table layouts beyond Markdown's capabilities
+  \item Fine-grained control over page breaks and formatting
+  \item Specialised environments not available through Pandoc
+\end{itemize}
+
+\noindent For example, an inline equation: $E = mc^2$, or a display equation:
+
+\begin{equation}
+  \int_0^\infty e^{-x^2}\, dx = \frac{\sqrt{\pi}}{2}
+\end{equation}

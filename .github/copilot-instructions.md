@@ -44,7 +44,7 @@ This is a Markdown-to-PDF publishing pipeline. The build flows:
 ## Key Conventions
 
 - Manuscript directories live at the project root alongside `bin/`, `config/`, `lib/`, and `help/`. A directory is recognised as a manuscript if it contains `manuscript.yaml`.
-- File ordering is always defined in `manuscript.yaml` under `files:` — not by filesystem sort order.
+- File ordering is always defined in `manuscript.yaml` under `files:` — not by filesystem sort order. Both `.md` and `.tex` source files can be listed; `.md` files are converted via Pandoc, `.tex` files are copied directly to the build directory.
 - Build output goes to `<manuscript>/build/`. The final PDF is `build/output.pdf` (copied from `build/master.pdf`).
 - Shared assets in `lib/` (styles, fonts, images, bibliography) are automatically available to all manuscripts via `TEXINPUTS`, `graphicspath`, and font paths set in the Makefile.
 - `.sty` files placed in `lib/styles/` are auto-included by `generate-master.sh`.

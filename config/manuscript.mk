@@ -32,11 +32,16 @@ SUBTITLE  := $(shell $(PARSE_MANIFEST) $(MANUSCRIPT_DIR) subtitle)
 DOC_CLASS := $(shell $(PARSE_MANIFEST) $(MANUSCRIPT_DIR) class)
 LANG      := $(shell $(PARSE_MANIFEST) $(MANUSCRIPT_DIR) lang)
 DATE      := $(shell $(PARSE_MANIFEST) $(MANUSCRIPT_DIR) date)
-MD_FILES  := $(shell $(PARSE_MANIFEST) $(MANUSCRIPT_DIR) files)
+# Read source files from manifest and split by type
+ALL_FILES      := $(shell $(PARSE_MANIFEST) $(MANUSCRIPT_DIR) files)
+MD_FILES       := $(filter %.md,$(ALL_FILES))
+TEX_SRC_FILES  := $(filter %.tex,$(ALL_FILES))
 
 # Derived values
 PREAMBLE       := $(CONFIG_DIR)/$(DOC_CLASS).tex
-TEX_FILES      := $(patsubst %.md,$(BUILD_DIR)/%.tex,$(MD_FILES))
+TEX_FROM_MD    := $(patsubst %.md,$(BUILD_DIR)/%.tex,$(MD_FILES))
+TEX_FROM_TEX   := $(addprefix $(BUILD_DIR)/,$(TEX_SRC_FILES))
+TEX_FILES      := $(TEX_FROM_MD) $(TEX_FROM_TEX)
 MASTER_TEX     := $(BUILD_DIR)/master.tex
 OUTPUT_PDF     := $(BUILD_DIR)/output.pdf
 MANUSCRIPT_NAME := $(notdir $(abspath $(MANUSCRIPT_DIR)))
@@ -60,7 +65,7 @@ pdf: $(OUTPUT_PDF)
 	@echo "Built: $(OUTPUT_PDF)"
 
 tex: $(TEX_FILES)
-	@echo "Converted $(words $(TEX_FILES)) files to LaTeX"
+	@echo "Processed $(words $(TEX_FILES)) files to build directory"
 
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
@@ -72,6 +77,11 @@ $(BUILD_DIR)/%.tex: $(MANUSCRIPT_DIR)/%.md $(TEMPLATE) | $(BUILD_DIR)
 		--from=markdown+smart+implicit_figures+table_captions+footnotes+fenced_code_blocks+strikeout+superscript+subscript \
 		--to=latex \
 		--output=$@
+
+# Copy hand-written .tex files directly to the build directory
+$(BUILD_DIR)/%.tex: $(MANUSCRIPT_DIR)/%.tex | $(BUILD_DIR)
+	@echo "  COPY    $< → $@"
+	@cp $< $@
 
 # Generate the master .tex file that includes all fragments
 GENERATE_MASTER := $(BIN_DIR)/generate-master.sh
@@ -106,4 +116,4 @@ info:
 	@echo "Author:     $(AUTHOR)"
 	@echo "Class:      $(DOC_CLASS)"
 	@echo "Language:   $(LANG)"
-	@echo "Files:      $(MD_FILES)"
+	@echo "Files:      $(ALL_FILES)"
