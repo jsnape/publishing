@@ -1,0 +1,19 @@
+# Pandoc shared defaults for the publishing pipeline.
+# Override per-manuscript via manuscript.yaml settings.
+from: markdown+smart+yaml_metadata_block+implicit_figures+table_captions+footnotes+inline_notes+fenced_code_blocks+fenced_code_attributes+backtick_code_blocks+fenced_divs+bracketed_spans+strikeout+superscript+subscript
+to: latex
+pdf-engine: xelatex
+standalone: true
+top-level-division: chapter
+number-sections: true
+toc: true
+toc-depth: 3
+
+variables:
+  documentclass: book
+  fontsize: 12pt
+  papersize: a4paper
+  geometry: margin=1in
+  linkcolor: blue
+  citecolor: blue
+  urlcolor: blue

@@ -1,0 +1,12 @@
+% Book-class preamble additions.
+% Included via header-includes when class: book is set in manuscript.yaml.
+
+% Chapter styling
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-20pt}{40pt}
+
+% Parts support
+\renewcommand{\thepart}{\Roman{part}}

@@ -1,0 +1,25 @@
+% Article-class preamble additions.
+% Included via header-includes when class: article is set in manuscript.yaml.
+
+% Section styling
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {\thesubsection}{1em}{}
+
+% Abstract styling
+\renewenvironment{abstract}{%
+  \begin{center}
+  \bfseries\abstractname\vspace{-0.5em}\vspace{0pt}
+  \end{center}
+  \list{}{%
+    \setlength{\leftmargin}{1cm}%
+    \setlength{\rightmargin}{\leftmargin}%
+  }%
+  \item\relax
+}{%
+  \endlist
+}

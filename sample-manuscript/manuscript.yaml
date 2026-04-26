@@ -1,0 +1,10 @@
+title: "Sample Manuscript"
+subtitle: "A Demonstration of the Publishing Pipeline"
+author: "Author Name"
+date: "2026"
+class: book
+lang: en-GB
+files:
+  - 01-introduction.md
+  - 02-main-content.md
+  - 03-conclusion.md
